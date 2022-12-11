@@ -9,18 +9,14 @@ let minNum = 0
 let INTERVAL
 let resumeValue = true
 
+
 const start = document.querySelector('.start')
 const lap = document.querySelector('.lap')
 const resume = document.querySelector('.resume')
 const reset = document.querySelector('.reset')
 const pause = document.querySelector('.pause')
 
-start.addEventListener('click', (e) => {
-  startStopwatch()
-
-  start.style.display = 'none'
-  pause.style.display = 'inline-block'
-})
+start.addEventListener('click', startStopwatch)
 
 pause.addEventListener('click', pauseStopwatch)
 
@@ -28,18 +24,77 @@ resume.addEventListener('click', resumeStopwatch)
 
 reset.addEventListener('click', resetStopwatch)
 
+lap.addEventListener('click', lapStopwatch)
+
 // FUNCTIONS
 // FUNCTIONS
 // FUNCTIONS
 // FUNCTIONS
 // FUNCTIONS
 
+let lapNumber = 1
+let timePrevious = 0
+
+function lapStopwatch(){  
+
+  // atual
+  let milliCurrent = Number(milli.innerText)
+  let secCurrent = Number(sec.innerText)
+  let minCurrent = Number(min.innerText)
+  let timeCurrent = milliCurrent + secCurrent*1000 + minCurrent*60000
+
+  let dif = timeCurrent - timePrevious
+
+  let conversaoMinutos = Math.floor(dif / 60000)
+  let conversaoSegundos = Math.floor((dif % 60000) / 1000)
+  let conversaoMili = (dif - conversaoMinutos*60000 - conversaoSegundos*1000)
+  
+  if(milliCurrent < 10) {
+    milliCurrent = '0' +milliCurrent
+  }
+  if(secCurrent < 10) {
+    secCurrent = '0' +secCurrent
+  }
+  if(minCurrent < 10) {
+    minCurrent = '0' +minCurrent
+  }
+  if(conversaoMinutos < 10){
+    conversaoMinutos = '0'+ conversaoMinutos
+  }
+  if(conversaoSegundos < 10){
+    conversaoSegundos = '0'+ conversaoSegundos
+  }
+  if(conversaoMili < 10){
+    conversaoMili = '0'+ conversaoMili
+  }
+
+  if(conversaoMili >= 100){
+    conversaoMili = Math.round(conversaoMili/10)
+  }
+
+  const table = document.querySelector('.stopwatch table')
+
+  table.innerHTML += `
+    <td class="lap-number">${lapNumber}</td>
+    <td class="laps-time">${conversaoMinutos}:${conversaoSegundos}:${conversaoMili}</td>
+    <td class="overvall-time">${minCurrent}:${secCurrent}:${milliCurrent}</td>
+  `
+
+  timePrevious = timeCurrent
+  lapNumber++
+}
+
 function startStopwatch() {
+  start.style.display = 'none'
+  pause.style.display = 'inline-block'
+  lap.style.display = 'inline-block'
+
   clearInterval(INTERVAL)
   INTERVAL = setInterval(() => {
     milliStopwatch()
   }, 10)
 }
+
 function resumeStopwatch() {
   pause.style.display = 'inline-block'
   lap.style.display = 'inline-block'
@@ -49,6 +104,7 @@ function resumeStopwatch() {
 
   resumeValue = true
 }
+
 function pauseStopwatch() {
   resume.style.display = 'inline-block'
   reset.style.display = 'inline-block'
@@ -61,7 +117,7 @@ function pauseStopwatch() {
 
 function resetStopwatch() {
   start.style.display = 'inline-block'
-  lap.style.display = 'inline-block'
+  lap.style.display = 'none'
   resume.style.display = 'none'
   reset.style.display = 'none'
   pause.style.display = 'none'
@@ -71,11 +127,24 @@ function resetStopwatch() {
   secNum = 0
   minNum = 0
 
+  timePrevious = 0
+  lapNumber = 1
+
   min.innerText = '00' 
   sec.innerText = '00' 
   milli.innerText = '00' 
 
   resumeValue = true
+
+  const table = document.querySelector('.stopwatch table')
+
+  table.innerHTML = 
+  `<tr>
+    <th>Lap</th>
+    <th>Lap times</th>
+    <th>Overall time</th>
+  </tr>`
+
 }
 
 function milliStopwatch() {

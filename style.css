@@ -14,6 +14,7 @@ body{
   color: white;
   text-align: center;
   font-size: 1em;
+  overflow: hidden;
 }
 
 a{
@@ -24,15 +25,33 @@ a:hover{
   color: var(--blue-1);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--black-3); 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--black-2); 
+}
 button{
   padding: 10px 25px;
   border: none;
   border-radius: 30px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .clock{
-  margin: 20px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
 }
 .menu{
   margin-bottom: 70px;
@@ -50,11 +69,8 @@ button{
   height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
-.stopwatch .numbers{
-  margin-bottom: 70px;
-}
+
 .stopwatch .lap,
 .stopwatch .reset{
   background-color: var(--black-1);
@@ -69,9 +85,38 @@ button{
   background-color: var(--red-1);
   color: var(--white-1);
 }
-
+.stopwatch .lap,
 .stopwatch .reset,
 .stopwatch .resume,
 .stopwatch .pause{
   display: none;
+}
+.stopwatch .lap-info{
+  height: 100%;
+  margin: 20px 0px;
+  font-size: 0.5em;
+  overflow-y: scroll;
+}
+.stopwatch table{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--gray-1);
+}
+.stopwatch tr{
+  display: flex;
+}
+.stopwatch th{
+  flex: 2;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray-1);
+}
+.stopwatch th:nth-child(1),
+.stopwatch td:nth-child(1){
+  flex: 1;
+}
+.stopwatch td{
+  flex: 2;
+  margin: 8px 0px;
 }
