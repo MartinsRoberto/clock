@@ -65,13 +65,13 @@ button{
   background-color: var(--blue-1);
   color: var(--white-1);
 }
-.stopwatch .stop{
+.stopwatch .pause{
   background-color: var(--red-1);
   color: var(--white-1);
 }
 
 .stopwatch .reset,
 .stopwatch .resume,
-.stopwatch .stop{
+.stopwatch .pause{
   display: none;
 }
