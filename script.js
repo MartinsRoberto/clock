@@ -22,36 +22,11 @@ start.addEventListener('click', (e) => {
   pause.style.display = 'inline-block'
 })
 
-pause.addEventListener('click', () => {
-  pauseStopwatch()
+pause.addEventListener('click', pauseStopwatch)
 
-  resume.style.display = 'inline-block'
-  reset.style.display = 'inline-block'
-  pause.style.display = 'none'
-  start.style.display = 'none'
-  lap.style.display = 'none'
-})
+resume.addEventListener('click', resumeStopwatch)
 
-resume.addEventListener('click', () => {
-
-  pause.style.display = 'inline-block'
-  lap.style.display = 'inline-block'
-  resume.style.display = 'none'
-  reset.style.display = 'none'
-  start.style.display = 'none'
-
-  resumeValue = true
-})
-
-reset.addEventListener('click', () => {
-  resetStopwatch()
-
-  start.style.display = 'inline-block'
-  lap.style.display = 'inline-block'
-  resume.style.display = 'none'
-  reset.style.display = 'none'
-  pause.style.display = 'none'
-})
+reset.addEventListener('click', resetStopwatch)
 
 // FUNCTIONS
 // FUNCTIONS
@@ -65,12 +40,32 @@ function startStopwatch() {
     milliStopwatch()
   }, 10)
 }
+function resumeStopwatch() {
+  pause.style.display = 'inline-block'
+  lap.style.display = 'inline-block'
+  resume.style.display = 'none'
+  reset.style.display = 'none'
+  start.style.display = 'none'
 
+  resumeValue = true
+}
 function pauseStopwatch() {
+  resume.style.display = 'inline-block'
+  reset.style.display = 'inline-block'
+  pause.style.display = 'none'
+  start.style.display = 'none'
+  lap.style.display = 'none'
+
   resumeValue = false
 }
 
 function resetStopwatch() {
+  start.style.display = 'inline-block'
+  lap.style.display = 'inline-block'
+  resume.style.display = 'none'
+  reset.style.display = 'none'
+  pause.style.display = 'none'
+
   clearInterval(INTERVAL)
   milliNum = 0
   secNum = 0
