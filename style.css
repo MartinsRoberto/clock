@@ -1,17 +1,77 @@
 :root{
-  --gray-400: #CED4DA;
+  --black-1: #151515;
+  --black-2: #1b1b1b;
+  --black-3: #272727;
+  --gray-1: #c4c4c4;
+  --blue-1: #3D8BFD;
+  --white-1: #f6f6f6;
+  --red-1: #DC3545;
 }
 
 body{
   height: 100vh;
   background-color: black;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  font-size: 1em;
 }
 
 a{
-  color: var(--gray-400);
-  font-size: 1.5em;
+  color: var(--gray-1);
+}
+
+a:hover{
+  color: var(--blue-1);
+}
+
+button{
+  padding: 10px 25px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.clock{
+  margin: 20px;
+}
+.menu{
+  margin-bottom: 70px;
+}
+
+
+/* STOPWATCH */
+/* STOPWATCH */
+/* STOPWATCH */
+/* STOPWATCH */
+/* STOPWATCH */
+
+.stopwatch{
+  font-size: 2em;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.stopwatch .numbers{
+  margin-bottom: 70px;
+}
+.stopwatch .lap,
+.stopwatch .reset{
+  background-color: var(--black-1);
+  color: var(--gray-1);
+}
+.stopwatch .start,
+.stopwatch .resume{
+  background-color: var(--blue-1);
+  color: var(--white-1);
+}
+.stopwatch .stop{
+  background-color: var(--red-1);
+  color: var(--white-1);
+}
+
+.stopwatch .reset,
+.stopwatch .resume,
+.stopwatch .stop{
+  display: none;
 }
