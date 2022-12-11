@@ -1,0 +1,17 @@
+:root{
+  --gray-400: #CED4DA;
+}
+
+body{
+  height: 100vh;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a{
+  color: var(--gray-400);
+  font-size: 1.5em;
+}
