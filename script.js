@@ -4,12 +4,13 @@ menu.addEventListener('click', (e) => {
   const text = e.target.innerText
   const $stopwatch = document.querySelector('.stopwatch')
   const $timer = document.querySelector('.timer')
-  const $alarmclock = document.querySelector('.alarm-clock')
+  
 
-  if (text === 'Stopwatch') {
+  if (text === 'Stopwatch') {  
     $stopwatch.style.display = 'block'
     $timer.style.display = 'none'
 
+    document.querySelector('.stopwatch').remove()
     stopwatch()
   }
   else if (text === 'Timer') {
@@ -18,12 +19,43 @@ menu.addEventListener('click', (e) => {
 
     timer()
   }
-  else if (text === 'Alarm Clock') {
-    alarmClock()
-  }
 })
 
-function stopwatch() {
+function stopwatch() {  
+  const element = `
+    <div class="stopwatch">
+    <div class="box">
+      <div class="numbers">
+        <span class="minutes">00</span>
+        <span>:</span>
+        <span class="seconds">00</span>
+        <span>:</span>
+        <span class="milli">00</span>
+      </div>
+      <div class="lap-info">
+        <table>
+          <tr class="table-header">
+            <th>Lap</th>
+            <th>Lap times</th>
+            <th>Overall time</th>
+          </tr>
+        </table>
+      </div>
+      <div class="btns">
+        <button class="lap">Lap</button>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <button class="resume">Resume</button>
+      </div>
+    </div>
+  </div>
+  `
+
+  document.querySelector('.container').innerHTML +=(element)
+
+  document.querySelector('.stopwatch').style.display = 'block'
+
   const milli = document.querySelector('.stopwatch .milli')
   const sec = document.querySelector('.stopwatch .seconds')
   const min = document.querySelector('.stopwatch .minutes')
@@ -37,21 +69,6 @@ function stopwatch() {
   let lapNumber = 1
   let timePrevious = 0
 
-  milli.innerText = '00'
-  sec.innerText = '00'
-  min.innerText = '00'
-
-  clearInterval(INTERVAL)
-
-  const table = document.querySelector('.stopwatch table')
-
-  table.innerHTML =
-    `<tr>
-      <th>Lap</th>
-      <th>Lap times</th>
-      <th>Overall time</th>
-    </tr>
-    `
 
   const start = document.querySelector('.stopwatch .start')
   const lap = document.querySelector('.stopwatch .lap')
@@ -69,13 +86,9 @@ function stopwatch() {
 
   lap.addEventListener('click', lapStopwatch)
 
-  // FUNCTIONS
-  // FUNCTIONS
-  // FUNCTIONS
-  // FUNCTIONS
-  // FUNCTIONS
-
-
+  startStopwatch()
+  pauseStopwatch()
+  resetStopwatch()
 
   function lapStopwatch() {
 
@@ -128,8 +141,10 @@ function stopwatch() {
 
   function startStopwatch() {
     start.style.display = 'none'
-    pause.style.display = 'inline-block'
     lap.style.display = 'inline-block'
+    resume.style.display = 'none'
+    reset.style.display = 'none'
+    pause.style.display = 'inline-block'
 
     clearInterval(INTERVAL)
     
@@ -149,11 +164,11 @@ function stopwatch() {
   }
 
   function pauseStopwatch() {
+    start.style.display = 'none'
+    lap.style.display = 'none'
     resume.style.display = 'inline-block'
     reset.style.display = 'inline-block'
     pause.style.display = 'none'
-    start.style.display = 'none'
-    lap.style.display = 'none'
 
     resumeValue = false
   }
