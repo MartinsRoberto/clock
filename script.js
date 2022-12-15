@@ -2,26 +2,19 @@ const menu = document.querySelector('.menu')
 
 menu.addEventListener('click', (e) => {
   const text = e.target.innerText
-  const $stopwatch = document.querySelector('.stopwatch')
-  const $timer = document.querySelector('.timer')
-  
 
-  if (text === 'Stopwatch') {  
-    $stopwatch.style.display = 'block'
-    $timer.style.display = 'none'
+  if (document.querySelector('.stopwatch')) { document.querySelector('.stopwatch').remove() }
+  if (document.querySelector('.timer')) { document.querySelector('.timer').remove() }
 
-    document.querySelector('.stopwatch').remove()
+  if (text === 'Stopwatch') {
     stopwatch()
   }
   else if (text === 'Timer') {
-    $stopwatch.style.display = 'none'
-    $timer.style.display = 'block'
-
     timer()
   }
 })
 
-function stopwatch() {  
+function stopwatch() {
   const element = `
     <div class="stopwatch">
     <div class="box">
@@ -52,7 +45,7 @@ function stopwatch() {
   </div>
   `
 
-  document.querySelector('.container').innerHTML +=(element)
+  document.querySelector('.container').innerHTML += (element)
 
   document.querySelector('.stopwatch').style.display = 'block'
 
@@ -147,7 +140,7 @@ function stopwatch() {
     pause.style.display = 'inline-block'
 
     clearInterval(INTERVAL)
-    
+
     INTERVAL = setInterval(() => {
       milliStopwatch()
     }, 10)
@@ -246,6 +239,35 @@ function stopwatch() {
 }
 
 function timer() {
+  const element = `
+  <div class="timer">
+    <div class="box">
+
+      <div class="timer-values">
+        <input class="input-min" type="number" value="1">
+        <span>:</span>
+        <input class="input-sec" type="number" value="59">
+        <span>:</span>
+        <input class="input-milli" type="number" value="1">
+      </div>
+
+      <div class="screen"></div>
+
+      <div class="btns">
+        <button class="start">Start</button>
+        <button class="reset">Reset</button>
+        <button class="pause">Pause</button>
+        <button class="resume">Resume</button>
+      </div>
+
+    </div>
+  </div>
+  `
+
+  document.querySelector('.container').innerHTML += (element)
+
+  document.querySelector('.timer').style.display = 'block'
+
   const start = document.querySelector('.timer .start')
   const resume = document.querySelector('.timer .resume')
   const reset = document.querySelector('.timer .reset')
@@ -259,37 +281,62 @@ function timer() {
 
   reset.addEventListener('click', resetTimer)
 
-  function startTimer(duration, display) {
-    const input = document.querySelectorAll('.timer input')
-
-
-
+  function startTimer() {
     start.style.display = 'none'
     resume.style.display = 'none'
     pause.style.display = 'inline-block'
     reset.style.display = 'inline-block'
 
-    let minutes
-    let seconds
+    let input_min = Number(document.querySelector('.timer .input-min').value)
+    let input_sec = Number(document.querySelector('.timer .input-sec').value)
+    let input_milli = Number(document.querySelector('.timer .input-milli').value)
+
+    if (input_min > 99 || input_min < 0) {
+      input_min = 0
+    }
+
+    if (input_sec > 99 || input_sec < 0) {
+      input_sec = 0
+    }
+
+    if (input_milli > 99 || input_milli < 0) {
+      input_milli = 0
+    }
 
 
-    // var INTERVAL = setInterval(function(){
-    //   minutes = parseInt(duration / 60, 10)
-    //   seconds = parseInt(duration % 60, 10)
+    function timerCount(duration) {
+      let minutes
+      let seconds;
+      let milli
+      setInterval(function () {
+        //em segundos
+        minutes = parseInt(duration / 60000, 10);
+        seconds = parseInt((duration % 60000)/1000);
+        milli = duration - minutes*60000 - seconds*1000;
 
-    //   minutes = minutes < 10 ? '0' + minutes : minutes
-    //   seconds = seconds < 10 ? '0' + seconds : seconds
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        milli = milli < 10 ? "00" + milli : milli;
+        milli = milli < 100 ? "0" + milli : milli;
 
-    //   display.textContent = minutes + ':' + seconds
+        document.querySelector('.timer .input-min').value = minutes;
+        document.querySelector('.timer .input-sec').value = seconds;
+        document.querySelector('.timer .input-milli').value = milli;
 
-    //   duration--
-
-    //   if(duration < 0){
-    //     clearInterval(INTERVAL)
-    //   }      
-    // }, 10)
-
+        duration = duration - 10
+        if (duration < 0) {
+          duration = 0;
+          return
+        }
+      }, 10);
+    }
+    var duration = input_min * 60000 + input_sec*1000 + input_milli
+    console.log(duration)
+    timerCount(duration);
   }
+
+
+
 
   function pauseTimer() {
     start.style.display = 'none'
@@ -311,8 +358,5 @@ function timer() {
     pause.style.display = 'none'
     reset.style.display = 'none'
   }
-  let duration = 60 * 4
-  let display = document.querySelector('.timer .screen')
 
-  // startTimer(duration, display)
 }

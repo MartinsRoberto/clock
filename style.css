@@ -14,14 +14,16 @@ body{
   text-align: center;
   font-size: 1em;
 }
+/* .bar{
+  top: 0px;
+  left: 50%;
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background-color: red;
+  z-index: 100;
+} */
 
-a{
-  color: var(--gray-1);
-}
-
-a:hover{
-  color: var(--blue-1);
-}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -59,6 +61,16 @@ button{
 }
 .menu{
   margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+.menu a{
+  color: var(--gray-1);
+  display: inline-block;
+  flex: 1;
+}
+.menu a:hover{
+  color: var(--blue-1);
 }
 .container{
   height: 80vh;
