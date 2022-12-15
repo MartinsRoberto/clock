@@ -244,11 +244,11 @@ function timer() {
     <div class="box">
 
       <div class="timer-values">
-        <input class="input-min" type="number" value="1">
+        <input class="input-min" type="number" value="10">
         <span>:</span>
-        <input class="input-sec" type="number" value="59">
+        <input class="input-sec" type="number" value="10">
         <span>:</span>
-        <input class="input-milli" type="number" value="1">
+        <input class="input-milli" type="number" value="10">
       </div>
 
       <div class="screen"></div>
@@ -281,82 +281,79 @@ function timer() {
 
   reset.addEventListener('click', resetTimer)
 
-  function startTimer() {
+  let milliInitial 
+  let secInitial
+  let minInitial
+  let time
+  let clearTimer
+
+  function startTimer(){
     start.style.display = 'none'
     resume.style.display = 'none'
-    pause.style.display = 'inline-block'
     reset.style.display = 'inline-block'
+    pause.style.display = 'inline-block'
 
-    let input_min = Number(document.querySelector('.timer .input-min').value)
-    let input_sec = Number(document.querySelector('.timer .input-sec').value)
-    let input_milli = Number(document.querySelector('.timer .input-milli').value)
+    milliInitial = Number(document.querySelector('.timer .input-milli').value)
+    secInitial = Number(document.querySelector('.timer .input-sec').value)
+    minInitial = Number(document.querySelector('.timer .input-min').value)
+ 
+    time = milliInitial + secInitial * 1000 + minInitial*60000
 
-    if (input_min > 99 || input_min < 0) {
-      input_min = 0
-    }
-
-    if (input_sec > 99 || input_sec < 0) {
-      input_sec = 0
-    }
-
-    if (input_milli > 99 || input_milli < 0) {
-      input_milli = 0
-    }
-
-
-    function timerCount(duration) {
-      let minutes
-      let seconds;
-      let milli
-      setInterval(function () {
-        //em segundos
-        minutes = parseInt(duration / 60000, 10);
-        seconds = parseInt((duration % 60000)/1000);
-        milli = duration - minutes*60000 - seconds*1000;
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        milli = milli < 10 ? "00" + milli : milli;
-        milli = milli < 100 ? "0" + milli : milli;
-
-        document.querySelector('.timer .input-min').value = minutes;
-        document.querySelector('.timer .input-sec').value = seconds;
-        document.querySelector('.timer .input-milli').value = milli;
-
-        duration = duration - 10
-        if (duration < 0) {
-          duration = 0;
-          return
-        }
-      }, 10);
-    }
-    var duration = input_min * 60000 + input_sec*1000 + input_milli
-    console.log(duration)
-    timerCount(duration);
+    clearTimer = setInterval(updateCountdown, 10);
   }
 
+  
+
+  function updateCountdown() {
+    let minutes = parseInt(time / 60000, 10)
+    let seconds = parseInt((time % 60000)/1000, 10)
+    let milli = time - (minutes * 60000 + seconds * 1000)
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    milli = milli < 10 ? "00" + milli : milli;
+    milli = milli < 100 ? "0" + milli : milli;
 
 
+    document.querySelector('.timer .input-min').value = minutes
+    document.querySelector('.timer .input-sec').value = seconds
+    document.querySelector('.timer .input-milli').value = milli
 
-  function pauseTimer() {
+    time -= 10;
+
+    if (time < 0) {
+      resetTimer()
+    }
+  }
+
+  function pauseTimer(){
     start.style.display = 'none'
     resume.style.display = 'inline-block'
-    pause.style.display = 'none'
     reset.style.display = 'inline-block'
+    pause.style.display = 'none'
+    clearInterval(clearTimer);
   }
 
-  function resumeTimer() {
+  function resumeTimer(){
     start.style.display = 'none'
     resume.style.display = 'none'
-    pause.style.display = 'inline-block'
     reset.style.display = 'inline-block'
+    pause.style.display = 'inline-block'
+
+    startTimer()
   }
 
-  function resetTimer() {
+  function resetTimer(){
     start.style.display = 'inline-block'
     resume.style.display = 'none'
-    pause.style.display = 'none'
     reset.style.display = 'none'
-  }
+    pause.style.display = 'none'
 
+    clearInterval(clearTimer);
+
+    document.querySelector('.timer .input-milli').value = '00'
+    document.querySelector('.timer .input-sec').value = '00'
+    document.querySelector('.timer .input-min').value = '00'
+  }
 }
+
