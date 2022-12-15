@@ -22,7 +22,11 @@ a{
 a:hover{
   color: var(--blue-1);
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -56,8 +60,8 @@ button{
 .menu{
   margin-bottom: 40px;
 }
-.box{
-  height: 86vh;
+.container{
+  height: 80vh;
 }
 /* STOPWATCH */
 /* STOPWATCH */
@@ -66,23 +70,29 @@ button{
 /* STOPWATCH */
 
 .stopwatch{
-  font-size: 2em;
-  display: none;
   height: 100%;
+  display: none;
+}
+
+.box{
+  height: 100%;
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .stopwatch .lap-info{
+  flex: 1;
   margin: 20px 0px;
   font-size: 0.5em;
   overflow-y: scroll;
-  height: 76%;
 }
 .stopwatch table{
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   color: var(--gray-1);
-  position: relative;
 }
 
 .stopwatch tr{
@@ -103,17 +113,17 @@ button{
   margin: 8px 0px;
 }
 
-.stopwatch .lap,
-.stopwatch .reset{
+.lap,
+.reset{
   background-color: var(--black-1);
   color: var(--gray-1);
 }
-.stopwatch .start,
-.stopwatch .resume{
+.start,
+.resume{
   background-color: var(--blue-1);
   color: var(--white-1);
 }
-.stopwatch .pause{
+.pause{
   background-color: var(--red-1);
   color: var(--white-1);
 }
@@ -131,4 +141,36 @@ button{
 
 .timer{
   display: none;
+  height: 100%;
+}
+
+.timer .reset,
+.timer .resume,
+.timer .pause{
+  display: none;
+}
+.timer .screen{
+  margin-top: 50%;
+}
+.timer .timer-values{
+  margin-top: 50%;
+}
+.timer .timer-values form{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.timer input{
+  color: var(--white-1);
+  border: none;
+  background-color: black;
+  border: 2px solid var(--black-1);
+  text-align: center;
+  font-size: 1em;
+  width: 100px;
+  border-radius: 10px;
+}
+.timer input:focus{
+  outline: none;
 }

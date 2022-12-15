@@ -8,11 +8,14 @@ menu.addEventListener('click', (e) => {
 
   if (text === 'Stopwatch') {
     $stopwatch.style.display = 'block'
+    $timer.style.display = 'none'
 
     stopwatch()
   }
   else if (text === 'Timer') {
+    $stopwatch.style.display = 'none'
     $timer.style.display = 'block'
+
     timer()
   }
   else if (text === 'Alarm Clock') {
@@ -21,9 +24,9 @@ menu.addEventListener('click', (e) => {
 })
 
 function stopwatch() {
-  const min = document.querySelector('.stopwatch .minutes')
-  const sec = document.querySelector('.stopwatch .seconds')
   const milli = document.querySelector('.stopwatch .milli')
+  const sec = document.querySelector('.stopwatch .seconds')
+  const min = document.querySelector('.stopwatch .minutes')
 
   let milliNum = 0
   let secNum = 0
@@ -31,6 +34,24 @@ function stopwatch() {
   let INTERVAL
   let resumeValue = true
 
+  let lapNumber = 1
+  let timePrevious = 0
+
+  milli.innerText = '00'
+  sec.innerText = '00'
+  min.innerText = '00'
+
+  clearInterval(INTERVAL)
+
+  const table = document.querySelector('.stopwatch table')
+
+  table.innerHTML =
+    `<tr>
+      <th>Lap</th>
+      <th>Lap times</th>
+      <th>Overall time</th>
+    </tr>
+    `
 
   const start = document.querySelector('.stopwatch .start')
   const lap = document.querySelector('.stopwatch .lap')
@@ -54,8 +75,7 @@ function stopwatch() {
   // FUNCTIONS
   // FUNCTIONS
 
-  let lapNumber = 1
-  let timePrevious = 0
+
 
   function lapStopwatch() {
 
@@ -112,6 +132,7 @@ function stopwatch() {
     lap.style.display = 'inline-block'
 
     clearInterval(INTERVAL)
+    
     INTERVAL = setInterval(() => {
       milliStopwatch()
     }, 10)
@@ -209,35 +230,74 @@ function stopwatch() {
   }
 }
 
-function timer(){
+function timer() {
+  const start = document.querySelector('.timer .start')
+  const resume = document.querySelector('.timer .resume')
+  const reset = document.querySelector('.timer .reset')
   const pause = document.querySelector('.timer .pause')
-  let help 
 
-  function startTimer(duration, display){
+  start.addEventListener('click', startTimer)
+
+  pause.addEventListener('click', pauseTimer)
+
+  resume.addEventListener('click', resumeTimer)
+
+  reset.addEventListener('click', resetTimer)
+
+  function startTimer(duration, display) {
+    const input = document.querySelectorAll('.timer input')
+
+
+
+    start.style.display = 'none'
+    resume.style.display = 'none'
+    pause.style.display = 'inline-block'
+    reset.style.display = 'inline-block'
+
     let minutes
     let seconds
 
 
-    var INTERVAL = setInterval(function(){
-      minutes = parseInt(duration / 60, 10)
-      seconds = parseInt(duration % 60, 10)
+    // var INTERVAL = setInterval(function(){
+    //   minutes = parseInt(duration / 60, 10)
+    //   seconds = parseInt(duration % 60, 10)
 
-      minutes = minutes < 10 ? '0' + minutes : minutes
-      seconds = seconds < 10 ? '0' + seconds : seconds
+    //   minutes = minutes < 10 ? '0' + minutes : minutes
+    //   seconds = seconds < 10 ? '0' + seconds : seconds
 
-      display.textContent = minutes + ':' + seconds
+    //   display.textContent = minutes + ':' + seconds
 
-      duration--
+    //   duration--
 
-      if(duration < 0){
-        clearInterval(INTERVAL)
-      }      
-    }, 10)
+    //   if(duration < 0){
+    //     clearInterval(INTERVAL)
+    //   }      
+    // }, 10)
 
   }
 
-  let duration = 60 * 4
-  let display = document.querySelector('.timer')
+  function pauseTimer() {
+    start.style.display = 'none'
+    resume.style.display = 'inline-block'
+    pause.style.display = 'none'
+    reset.style.display = 'inline-block'
+  }
 
-  startTimer(duration, display)
+  function resumeTimer() {
+    start.style.display = 'none'
+    resume.style.display = 'none'
+    pause.style.display = 'inline-block'
+    reset.style.display = 'inline-block'
+  }
+
+  function resetTimer() {
+    start.style.display = 'inline-block'
+    resume.style.display = 'none'
+    pause.style.display = 'none'
+    reset.style.display = 'none'
+  }
+  let duration = 60 * 4
+  let display = document.querySelector('.timer .screen')
+
+  // startTimer(duration, display)
 }
