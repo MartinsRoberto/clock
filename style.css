@@ -75,6 +75,35 @@ button{
 .container{
   height: 80vh;
 }
+
+/* TIME */
+/* TIME */
+/* TIME */
+/* TIME */
+/* TIME */
+
+.time{
+  display: block;
+  height: 100%;
+}
+
+.time .box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.time .box .row{
+  display: flex;
+  gap: 10px;
+}
+.time .box .row:nth-child(1){
+  font-size: 1.5em;
+}
+.time .box .row:nth-child(2){
+  font-size: 0.5em;
+}
 /* STOPWATCH */
 /* STOPWATCH */
 /* STOPWATCH */
@@ -180,9 +209,10 @@ button{
   border: 2px solid var(--black-1);
   text-align: center;
   font-size: 1em;
-  width: 100px;
+  width: 60px;
   border-radius: 10px;
 }
 .timer input:focus{
   outline: none;
 }
+
