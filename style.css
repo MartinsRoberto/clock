@@ -13,16 +13,12 @@ body{
   color: white;
   text-align: center;
   font-size: 1em;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
-/* .bar{
-  top: 0px;
-  left: 50%;
-  position: absolute;
-  height: 100%;
-  width: 2px;
-  background-color: red;
-  z-index: 100;
-} */
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -53,14 +49,17 @@ button{
 }
 
 .clock{
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 400px;
+  margin: auto;
+  width: 400px;
   height: 90vh;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 .menu{
-  margin-bottom: 40px;
+  font-size: 20px;
+  padding: 10px 0px;
   display: flex;
   justify-content: center;
 }
@@ -73,7 +72,7 @@ button{
   color: var(--blue-1);
 }
 .container{
-  height: 80vh;
+  flex: 1;
 }
 
 /* TIME */
@@ -88,6 +87,7 @@ button{
 }
 
 .time .box{
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,20 +111,20 @@ button{
 /* STOPWATCH */
 
 .stopwatch{
-  height: 100%;
   display: none;
+  height: 100%;
 }
 
 .box{
-  height: 100%;
   font-size: 2em;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .stopwatch .lap-info{
-  flex: 1;
+  height: 420px;
   margin: 20px 0px;
   font-size: 0.5em;
   overflow-y: scroll;
