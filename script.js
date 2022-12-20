@@ -27,14 +27,14 @@ function time() {
   ];
 
   const date = new Date();
-  const day = date.getDay()
+  const day = date.getDate()
   const month = monthNames[date.getMonth()]
   const year = date.getFullYear()
   const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
   const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
   const sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
 
-
+  console.log('oi')
   const element = `
   <div class="time">
     <div class="box">
