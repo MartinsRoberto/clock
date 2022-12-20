@@ -6,8 +6,11 @@ menu.addEventListener('click', (e) => {
   if (document.querySelector('.stopwatch')) { document.querySelector('.stopwatch').remove() }
   if (document.querySelector('.timer')) { document.querySelector('.timer').remove() }
   if (document.querySelector('.time')) { document.querySelector('.time').remove() }
-
+  
+  clearInterval(stopInterval)
+  clearInterval(timerInterval)
   clearInterval(timeInterval)
+  
   if (text === 'Stopwatch') {
     stopwatch()
   }
@@ -19,7 +22,9 @@ menu.addEventListener('click', (e) => {
   }
 })
 
-var timeInterval = setInterval(time, 1000)
+let stopInterval
+let timerInterval
+let timeInterval = setInterval(time, 1000)
 
 function time() {
   const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -34,7 +39,6 @@ function time() {
   const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
   const sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
 
-  console.log('oi')
   const element = `
   <div class="time">
     <div class="box">
@@ -104,7 +108,6 @@ function stopwatch() {
   let milliNum = 0
   let secNum = 0
   let minNum = 0
-  let INTERVAL
   let resumeValue = true
 
   let lapNumber = 1
@@ -187,9 +190,9 @@ function stopwatch() {
     reset.style.display = 'none'
     pause.style.display = 'inline-block'
 
-    clearInterval(INTERVAL)
+    clearInterval(stopInterval)
 
-    INTERVAL = setInterval(() => {
+    stopInterval = setInterval(() => {
       milliStopwatch()
     }, 10)
   }
@@ -221,7 +224,7 @@ function stopwatch() {
     reset.style.display = 'none'
     pause.style.display = 'none'
 
-    clearInterval(INTERVAL)
+    clearInterval(stopInterval)
     milliNum = 0
     secNum = 0
     minNum = 0
@@ -333,7 +336,6 @@ function timer() {
   let secInitial
   let minInitial
   let time
-  let clearTimer
 
   function startTimer() {
     start.style.display = 'none'
@@ -347,7 +349,7 @@ function timer() {
 
     time = milliInitial + secInitial * 1000 + minInitial * 60000
 
-    clearTimer = setInterval(updateCountdown, 10);
+    timerInterval = setInterval(updateCountdown, 10);
   }
 
 
@@ -379,7 +381,7 @@ function timer() {
     resume.style.display = 'inline-block'
     reset.style.display = 'inline-block'
     pause.style.display = 'none'
-    clearInterval(clearTimer);
+    clearInterval(timerInterval);
   }
 
   function resumeTimer() {
@@ -397,7 +399,7 @@ function timer() {
     reset.style.display = 'none'
     pause.style.display = 'none'
 
-    clearInterval(clearTimer);
+    clearInterval(timerInterval);
 
     document.querySelector('.timer .input-milli').value = '00'
     document.querySelector('.timer .input-sec').value = '00'
