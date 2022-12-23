@@ -1,4 +1,4 @@
-# Ecommerce
+# Clock
 
 Este consiste num aplicativo que possui três funcionalidades: Stopwatch, Time, Timer. 
 
@@ -6,7 +6,7 @@ Este consiste num aplicativo que possui três funcionalidades: Stopwatch, Time, 
 
 Este portfólio foi construído com HTML, CSS e JavaScript. Ele possui uma tela de Stopwatch (cronômetro), Time (hora), Timer (temporizador).
 Na tela do Stopwatch e Timer ele possui as funcionalidades iniciar, pause, continuar, parar o tempo. Ainda no Stopwatch ele possui o botão de voltas. 
-Na parte do Time é apenas visual, não há interação com o usuário. Na tela
+Na parte do Time é apenas visual, não há interação com o usuário. Na tela de timer é possível criar um temporizar com minutos, segundos e milésimos.
 
 # Interface
 
